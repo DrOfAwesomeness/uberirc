@@ -1,0 +1,20 @@
+{
+  "name": "uberirc",
+  "version": "0.1.0",
+  "description": "An IRC client library for Node.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DrOfAwesomeness/node-uberirc.git"
+  },
+  "keywords": [
+    "irc",
+    "chat"
+  ],
+  "author": "Matthew East <matthew@mattheweast.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DrOfAwesomeness/node-uberirc/issues"
+  },
+  "homepage": "https://github.com/DrOfAwesomeness/node-uberirc"
+}
