@@ -15,17 +15,17 @@ module.exports =
       return "MODE #{nickname} #{mode}"
     return "MODE #{nickname}"
   service: (nickname, distribution, type, info) ->
-    return "SERVICE #{nickname} * #{distribution} #{type} * #{info}"
+    return "SERVICE #{nickname} * #{distribution} #{type} * :#{info}"
   quit: (quitmessage) ->
     if quitmessage
       return "QUIT :#{quitmessage}"
     return "QUIT"
   squit: (server, comment) ->
-    return "SQUIT #{server} #{comment}"
+    return "SQUIT #{server} :#{comment}"
 
   # Section 3.2 - Channel operations
   join: (channel, key) ->
-    if keys
+    if key
       return "JOIN #{channel} #{key}"
     return "JOIN #{channel}"
   part: (channel, reason) ->
@@ -56,10 +56,10 @@ module.exports =
     return "LIST"
   invite: (nickname, channel) ->
     return "INVITE #{nickname} #{channel}"
-  kick: (nickname, channel, comment) ->
-    if comment
-      return "KICK #{nickname} #{channel} :#{comment}"
-    return "KICK #{nickname} #{channel}"
+  kick: (channel, nickname, reason) ->
+    if reason
+      return "KICK #{channel} #{nickname} :#{reason}"
+    return "KICK #{channel} #{nickname}"
 
   # 3.3 - Sending messages
   privmsg: (msgtarget, text) ->
@@ -89,7 +89,7 @@ module.exports =
       return "STATS #{query}"
     return "STATS"
   links: (servermask, remoteserver) ->
-    if target
+    if remoteserver
       return "LINKS #{remoteserver} #{servermask}"
     if servermask
       return "LINKS #{servermask}"
@@ -143,7 +143,7 @@ module.exports =
 
   # 3.7 - Miscellaneous messages
   kill: (nickname, comment) ->
-    return "KILL #{nickname} #{comment}"
+    return "KILL #{nickname} :#{comment}"
   ping: (server1, server2) ->
     if server2
       return "PING #{server1} #{server2}"
@@ -151,6 +151,6 @@ module.exports =
   pong: (server1, server2) ->
     if server2
       return "PONG #{server1} #{server2}"
-    return "PONG #{server2}"
+    return "PONG #{server1}"
   error: (errormessage) ->
-    return "ERROR #{errormessage}"
+    return "ERROR :#{errormessage}"
