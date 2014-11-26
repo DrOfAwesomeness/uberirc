@@ -194,6 +194,7 @@ parseIrcMessage = (line) ->
     parsedMessage.parameters = splitLine.slice 1
   parsedMessage
 module.exports =
+  messageOriginTypes: messageOriginTypes
   repliesByCode: repliesByCode
   repliesByNumber: repliesByNumber
   parseIrcMessage: parseIrcMessage
