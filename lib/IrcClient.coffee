@@ -6,9 +6,9 @@ IrcMessageParser = require "./IrcMessageParser.coffee"
 class IrcClient extends events.EventEmitter
   constructor: (@options={}) ->
     if !@options.server
-      throw "Server not specified"
+      throw new Error "Server not specified"
     if !@options.nick
-      throw "Nick not specified"
+      throw new Error "Nick not specified"
     @options.port = @options.port | 6667
     @options.username = @options.username | "UberIRC"
     @options.realname = @options.realname | "A UberIRC Bot"
