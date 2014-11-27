@@ -35,8 +35,8 @@ class IrcClient extends events.EventEmitter
         if parsedMessage.command
           switch parsedMessage.command
             when "PING"
-              parent.emit "ping"
-              parent._sendRaw parent._generator.pong parsedMessage.parameters[1]
+              parent.emit "ping", parsedMessage
+              parent._sendRaw parent._generator.pong parsedMessage.parameters[0]
             when "NOTICE"
               eventObject =
                 origin: parsedMessage.origin
