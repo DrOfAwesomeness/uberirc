@@ -1,8 +1,8 @@
 ###*
   * This class represents an IRC message
   * @name IrcMessage
-  * @category Class
   * @package IRC Message
+  * @category Class
 ###
 class IrcMessage
   ###*
@@ -21,32 +21,32 @@ class IrcMessage
   ###*
     * True if the message is a numeric reply.
     * @name numeric
-    * @category Boolean
     * @package IRC Message
+    * @category Boolean
     * @type {boolean}
   ###
   numeric: false
   ###*
     * Contains the reply number if the message is a numeric reply.
     * @name replyNum
-    * @category Number
     * @package IRC Message
+    * @category Number
     * @type {number}
   ###
   replyNum: null
   ###*
     * Contains the reply code if the message is a numeric reply.
     * @name replyCode
-    * @category String
     * @package IRC Message
+    * @category String
     * @type {string}
   ###
   replyCode: null
   ###*
     * Contains the IRC message parameters.
     * @name parameters
-    * @category Array
     * @package IRC Message
+    * @category Array
     * @type {array}
   ###
   parameters: []

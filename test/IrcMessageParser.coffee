@@ -16,14 +16,14 @@ describe "IrcMessageParser", ->
       servermessage.origin.isServer.should.equal true
       servermessage.origin.server.should.equal "server.foonet.net"
       usermessage.origin.isServer.should.equal false
-      usermessage.origin.username.should.equal "~someone"
+      usermessage.origin.username.should.equal "someone"
       usermessage.origin.nick.should.equal "someone"
       usermessage.origin.hostname.should.equal "google.com"
     it "should properly parse chat messages sent to channels", ->
       channelmessage = IrcMessageParser.parseIrcMessage ":someone!~someone@google.com PRIVMSG #channel :Hello, all!"
       channelmessage.origin.isServer.should.equal false
       channelmessage.origin.nick.should.equal "someone"
-      channelmessage.origin.username.should.equal "~someone"
+      channelmessage.origin.username.should.equal "someone"
       channelmessage.origin.hostname.should.equal "google.com"
       channelmessage.command.should.equal "PRIVMSG"
       channelmessage.parameters[0].should.equal "#channel"
@@ -32,7 +32,7 @@ describe "IrcMessageParser", ->
       channelmessage = IrcMessageParser.parseIrcMessage ":someone!~someone@google.com PRIVMSG nickname :The magic word is 'secret'"
       channelmessage.origin.isServer.should.equal false
       channelmessage.origin.nick.should.equal "someone"
-      channelmessage.origin.username.should.equal "~someone"
+      channelmessage.origin.username.should.equal "someone"
       channelmessage.origin.hostname.should.equal "google.com"
       channelmessage.command.should.equal "PRIVMSG"
       channelmessage.parameters[0].should.equal "nickname"

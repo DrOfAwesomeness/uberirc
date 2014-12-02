@@ -151,16 +151,16 @@ repliesByCode =
 ###
 repliesByNumber = {}
 
-`for (replyCode in repliesByCode) {
-  repliesByNumber[repliesByCode[replyCode]] = replyCode
-}`
+for replyCode, replyNumber of repliesByCode
+  repliesByNumber[replyNumber] = replyCode
+
 ###*
   * Splits an IRC message into an array of tokens. If a token starts with a colon, everything after that is counted as one token.
   * @name splitIrcLine
   * @package IRC Parser
   * @category Function
+  * @type {array}
   * @parameter {string} line (The IRC line to split.)
-  * @type Array
 ###
 splitIrcLine = (line) ->
   splitLine = []
@@ -182,15 +182,16 @@ splitIrcLine = (line) ->
   * @package IRC Parser
   * @category Function
   * @parameter {string} prefix (The prefix of the IRC message. Generally the first token.)
-  * @type Object
+  * @type {object}
 ###
 getMessageOrigin = (prefix) ->
   messageOrigin = {}
   if /:.*!.*@.+.*/.exec(prefix)
+    originParts = /:(.*)!~([^@]*)@(.*)/.exec(prefix)
     messageOrigin.isServer = false
-    messageOrigin.nick = prefix.split('!')[0].substr 1
-    messageOrigin.username = /!([^@]*)/.exec(prefix)[1]
-    messageOrigin.hostname = prefix.substr prefix.indexOf('@') + 1
+    messageOrigin.nick = originParts[1]
+    messageOrigin.username = originParts[2]
+    messageOrigin.hostname = originParts[3]
   else if prefix[0] == ":" && prefix.indexOf(".") == -1
     messageOrigin.isServer = false
     messageOrigin.nick = prefix.substr 1
@@ -205,8 +206,8 @@ getMessageOrigin = (prefix) ->
   * @name parseIrcMessage
   * @package IRC Parser
   * @category Function
+  * @type {IrcMessage}
   * @parameter {string} line (The raw IRC message to parse.)
-  * @type IrcMessage
 ###
 parseIrcMessage = (line) ->
   parsedMessage = new IrcMessage()
