@@ -1,4 +1,10 @@
 IrcMessage = require "./IrcMessage.coffee"
+###*
+  * Contains a list of numeric replies indexed by code.
+  * @name repliesByCode
+  * @package IRC Parser
+  * @category Object
+###
 repliesByCode =
   "RPL_WELCOME": "001",
   "RPL_YOURHOST": "002",
@@ -137,12 +143,25 @@ repliesByCode =
   "ERR_NOOPERHOST": "491",
   "ERR_UMODEUNKNOWNFLAG": "501",
   "ERR_USERSDONTMATCH": "502"
+###*
+  * Contains a list of numeric replies indexed by number.
+  * @name repliesByNumber
+  * @package IRC Parser
+  * @category Object
+###
 repliesByNumber = {}
 
 `for (replyCode in repliesByCode) {
   repliesByNumber[repliesByCode[replyCode]] = replyCode
 }`
-
+###*
+  * Splits an IRC message into an array of tokens. If a token starts with a colon, everything after that is counted as one token.
+  * @name splitIrcLine
+  * @package IRC Parser
+  * @category Function
+  * @parameter {string} line (The IRC line to split.)
+  * @type Array
+###
 splitIrcLine = (line) ->
   splitLine = []
   lineParts = line.split ' '
@@ -157,6 +176,14 @@ splitIrcLine = (line) ->
     splitLine.push linePart
   splitLine
 
+###*
+  * Determines the origin of a message from the prefix. See IrcMessage.origin.
+  * @name getMessageOrigin
+  * @package IRC Parser
+  * @category Function
+  * @parameter {string} prefix (The prefix of the IRC message. Generally the first token.)
+  * @type Object
+###
 getMessageOrigin = (prefix) ->
   messageOrigin = {}
   if /:.*!.*@.+.*/.exec(prefix)
@@ -173,6 +200,14 @@ getMessageOrigin = (prefix) ->
       messageOrigin.server = prefix.substr 1
   messageOrigin
 
+###*
+  * Parses an IRC message.
+  * @name parseIrcMessage
+  * @package IRC Parser
+  * @category Function
+  * @parameter {string} line (The raw IRC message to parse.)
+  * @type IrcMessage
+###
 parseIrcMessage = (line) ->
   parsedMessage = new IrcMessage()
   splitLine = splitIrcLine(line)
