@@ -146,7 +146,7 @@ class IrcClient extends events.EventEmitter
               parent.emit "welcome"
             when "RPL_TOPIC"
               ###*
-                * Emitted when the client receives a topic (or lack thereof) for a channel from the server
+                * Emitted when the client receives a topic, or lack thereof, for a channel from the server
                 * @name topic
                 * @package IRC Client
                 * @category Event

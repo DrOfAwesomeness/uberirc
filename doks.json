@@ -1,8 +1,17 @@
 {
     "language": "coffee",
-    "glob": "lib/IrcClient.coffee",
+    "glob": "lib/*.coffee",
     "arrayTags": [
         "parameter",
         "property"
-    ]
+    ],
+    "templateOptions": {
+        "page": {
+            "pageName": "UberIRC",
+            "showGitHubBadges": false
+        },
+        "content": {
+            "sourceLink": false
+        }
+    }
 }
