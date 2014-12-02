@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DrOfAwesomeness/node-uberirc.git"
+    "url": "https://github.com/UberIRC/uberirc.git"
   },
   "keywords": [
     "irc",
@@ -17,9 +17,9 @@
   "author": "Matthew East <matthew@mattheweast.me>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DrOfAwesomeness/node-uberirc/issues"
+    "url": "https://github.com/UberIRC/uberirc/issues"
   },
-  "homepage": "https://github.com/DrOfAwesomeness/node-uberirc",
+  "homepage": "https://github.com/UberIRC/uberirc",
   "dependencies": {
     "coffee-script": "^1.8.0"
   },
