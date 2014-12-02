@@ -1,3 +1,4 @@
+IrcMessage = require "./IrcMessage.coffee"
 repliesByCode =
   "RPL_WELCOME": "001",
   "RPL_YOURHOST": "002",
@@ -137,9 +138,6 @@ repliesByCode =
   "ERR_UMODEUNKNOWNFLAG": "501",
   "ERR_USERSDONTMATCH": "502"
 repliesByNumber = {}
-messageOriginTypes =
-  USER: 1
-  SERVER: 2
 
 `for (replyCode in repliesByCode) {
   repliesByNumber[repliesByCode[replyCode]] = replyCode
@@ -162,24 +160,22 @@ splitIrcLine = (line) ->
 getMessageOrigin = (prefix) ->
   messageOrigin = {}
   if /:.*!.*@.+.*/.exec(prefix)
-    messageOrigin.type = messageOriginTypes.USER
+    messageOrigin.isServer = false
     messageOrigin.nick = prefix.split('!')[0].substr 1
     messageOrigin.username = /!([^@]*)/.exec(prefix)[1]
     messageOrigin.hostname = prefix.substr prefix.indexOf('@') + 1
   else if prefix[0] == ":" && prefix.indexOf(".") == -1
-    messageOrigin.type = messageOriginTypes.USER
+    messageOrigin.isServer = false
     messageOrigin.nick = prefix.substr 1
   else
-    messageOrigin.type = messageOriginTypes.SERVER
+    messageOrigin.isServer = true
     if prefix[0] == ":"
       messageOrigin.server = prefix.substr 1
   messageOrigin
 
 parseIrcMessage = (line) ->
-  parsedMessage =
-    numeric: false
+  parsedMessage = new IrcMessage()
   splitLine = splitIrcLine(line)
-  parsedMessage._splitLine = splitLine
   parsedMessage.origin = getMessageOrigin(splitLine[0])
   if splitLine[0][0] == ":"
     if /\d\d\d/.exec splitLine[1]
@@ -194,7 +190,6 @@ parseIrcMessage = (line) ->
     parsedMessage.parameters = splitLine.slice 1
   parsedMessage
 module.exports =
-  messageOriginTypes: messageOriginTypes
   repliesByCode: repliesByCode
   repliesByNumber: repliesByNumber
   parseIrcMessage: parseIrcMessage

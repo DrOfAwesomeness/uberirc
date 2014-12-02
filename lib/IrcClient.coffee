@@ -94,7 +94,7 @@ class IrcClient extends events.EventEmitter
                 * @package IRC Client
                 * @category Event
                 * @type {object}
-                * @property {object} origin (An object containing information about the server or user who caused the message to be sent. Contains "server" if the message is from a server or "nick", "username", and "hostname" if the message is from a user)
+                * @property {object} origin (See IrcMessage.origin)
                 * @property {array} parameters (Contains the message's parameters.)
               ###
               parent.emit "ping", parsedMessage
@@ -110,7 +110,7 @@ class IrcClient extends events.EventEmitter
                 * @package IRC Client
                 * @category Event
                 * @type {object}
-                * @property {object} origin (An object containing information about the server or user who caused the message to be sent. Contains "server" if the message is from a server or "nick", "username", and "hostname" if the message is from a user)
+                * @property {object} origin (See IrcMessage.origin)
                 * @property {string} target (The target of the message. If the message was sent to a channel, this will be the name of the channel.)
                 * @property {string} content (The content of the NOTICE)
               ###
@@ -126,14 +126,14 @@ class IrcClient extends events.EventEmitter
                 * @package IRC Client
                 * @category Event
                 * @type {object}
-                * @property {object} origin (An object containing information about the server or user who caused the message to be sent. Contains "server" if the message is from a server or "nick", "username", and "hostname" if the message is from a user)
+                * @property {object} origin (See IrcMessage.origin)
                 * @property {string} target (The target of the message. If the message was sent to a channel, this will be the name of the channel.)
                 * @property {string} content (The content of the message)
               ###
               parent.emit "chat", eventObject
               parent.emit "chat-" + eventObject.target, eventObject
         else if parsedMessage.replyCode
-          if parsedMessage.replyCode.startsWith "ERR"
+          if parsedMessage.replyCode.substr(0,3) == "ERR"
             parent.emit "error", parsedMessage
           switch parsedMessage.replyCode
             when "RPL_WELCOME"
