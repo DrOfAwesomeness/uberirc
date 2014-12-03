@@ -187,7 +187,7 @@ splitIrcLine = (line) ->
 getMessageOrigin = (prefix) ->
   messageOrigin = {}
   if /:.*!.*@.+.*/.exec(prefix)
-    originParts = /:(.*)!~([^@]*)@(.*)/.exec(prefix)
+    originParts = /:(.*)!([^@]*)@(.*)/.exec(prefix)
     messageOrigin.isServer = false
     messageOrigin.nick = originParts[1]
     messageOrigin.username = originParts[2]
